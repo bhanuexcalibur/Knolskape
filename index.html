@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KNOLSKAPE × Bhanu Kumar · Product GTM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --bg:      #0a0a0f;
+  --bg2:     #0f0f18;
+  --bg3:     #151520;
+  --bg4:     #1b1b2a;
+  --bg5:     #23233a;
+  --bdr:     rgba(255,255,255,0.05);
+  --bmd:     rgba(255,255,255,0.12);
+  --blg:     rgba(255,255,255,0.20);
+  --t1:      #f5f5f5;
+  --t2:      #9ca3af;
+  --t3:      #6b7280;
+  --accent:  #6366f1;
+  --acc-dim: rgba(99,102,241,0.12);
+  --acc-t:   #818cf8;
+  --acc-g:   rgba(99,102,241,0.25);
+}
+
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{
+  background:var(--bg);color:var(--t1);
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  font-size:16px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.015'/%3E%3C/svg%3E");
+}
+
+#pbar{position:fixed;top:0;left:0;height:2px;background:var(--accent);z-index:999;width:0;transition:width 0.1s linear}
+
+/* NAV */
+.nav{
+  position:sticky;top:0;z-index:400;
+  background:rgba(10,10,15,0.92);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--bdr);
+  padding:0 5vw;
+}
+.nav-i{
+  max-width:1200px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+  height:70px;gap:20px;
+}
+.nav-brand{
+  font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:500;
+  color:var(--t1);letter-spacing:.05em;text-decoration:none;
+  display:flex;align-items:center;gap:8px;flex-shrink:0;
+}
+.nav-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--accent);
+  box-shadow:0 0 12px var(--acc-g);
+  animation:pulse 2s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4}}
+.nav-links{display:flex;gap:1px;flex-wrap:wrap}
+.nlink{
+  font-size:13px;font-weight:500;color:var(--t2);text-decoration:none;
+  padding:6px 14px;border-radius:6px;transition:all .15s;
+}
+.nlink:hover{background:var(--bg3);color:var(--t1)}
+.nav-resume{
+  font-size:12px;font-weight:600;color:var(--t1);text-decoration:none;
+  padding:7px 15px;border-radius:6px;background:var(--acc-dim);
+  border:1px solid rgba(99,102,241,0.2);transition:all .15s;
+}
+.nav-resume:hover{background:rgba(99,102,241,0.2);border-color:rgba(99,102,241,0.4)}
+.nav-hbg{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.nav-hbg span{display:block;width:20px;height:1.5px;background:var(--t2);border-radius:2px;transition:all .3s}
+.nav-hbg.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.nav-hbg.open span:nth-child(2){opacity:0}
+.nav-hbg.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+.mob-menu{display:none;position:fixed;inset:70px 0 0;background:rgba(10,10,15,0.98);backdrop-filter:blur(20px);z-index:390;flex-direction:column;padding:20px 5vw;gap:0}
+.mob-menu.open{display:flex}
+.mob-menu .nlink{display:block;padding:12px 16px;font-size:14px}
+@media(max-width:768px){
+  .nav-links{display:none}
+  .nav-resume{display:none}
+  .nav-hbg{display:flex}
+}
+
+.wrap{max-width:1200px;margin:0 auto;padding:0 5vw;position:relative;z-index:1}
+section{border-bottom:1px solid var(--bdr);padding:80px 5vw}
+
+/* HERO */
+.hero{
+  min-height:90vh;display:flex;align-items:center;padding:80px 5vw 100px;
+  position:relative;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(800px 500px at 10% 20%, rgba(99,102,241,0.08) 0%, transparent 50%),
+    radial-gradient(600px 400px at 90% 80%, rgba(167,139,250,0.06) 0%, transparent 50%);
+  pointer-events:none;
+}
+.hero-i{
+  max-width:1200px;margin:0 auto;width:100%;
+  position:relative;z-index:1;padding:0 5vw;
+}
+.hero-eyebrow{
+  font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:var(--acc-t);margin-bottom:24px;display:flex;align-items:center;gap:10px;
+}
+.hero-eyebrow::before{content:'';display:block;width:20px;height:1px;background:var(--accent)}
+.hero-h{
+  font-family:'Newsreader',serif;font-style:italic;
+  font-size:clamp(2.4rem,5.5vw,4rem);font-weight:500;
+  line-height:1.15;color:var(--t1);margin-bottom:20px;max-width:900px;
+}
+.hero-h em{color:var(--acc-t);font-style:italic}
+.hero-sub{
+  font-size:1.05rem;color:var(--t2);
+  max-width:700px;line-height:1.8;margin-bottom:0;
+}
+
+@media(max-width:520px){
+  .hero{padding:60px 5vw 80px}
+}
+
+/* SECTIONS */
+.sec-label{
+  display:flex;align-items:center;gap:10px;margin-bottom:28px;flex-wrap:wrap;
+}
+.sec-tag{
+  font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;
+  color:var(--acc-t);letter-spacing:.08em;text-transform:uppercase;
+  background:var(--acc-dim);border:1px solid rgba(99,102,241,0.2);
+  padding:4px 11px;border-radius:100px;
+}
+.sec-h{
+  font-family:'Newsreader',serif;font-style:italic;
+  font-size:clamp(1.8rem,4vw,2.8rem);font-weight:500;
+  line-height:1.2;color:var(--t1);margin-bottom:16px;
+}
+.sec-h em{color:var(--acc-t)}
+.sec-sub{
+  font-size:1rem;color:var(--t2);line-height:1.7;
+  max-width:700px;margin-bottom:40px;
+}
+
+/* RESEARCH FINDINGS */
+.finding-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:40px;
+}
+.finding-card{
+  background:var(--bg2);border:1px solid var(--bdr);
+  border-radius:12px;padding:28px;
+}
+.fc-label{
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  color:var(--t3);text-transform:uppercase;letter-spacing:.08em;
+  margin-bottom:12px;font-weight:600;
+}
+.fc-title{
+  font-size:14px;font-weight:600;color:var(--t1);margin-bottom:10px;line-height:1.4;
+}
+.fc-body{
+  font-size:13px;color:var(--t2);line-height:1.7;
+}
+.fc-stat{
+  margin-top:14px;padding-top:14px;border-top:1px solid var(--bdr);
+}
+.fc-stat-num{
+  font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:600;
+  color:var(--accent);
+}
+.fc-stat-label{
+  font-size:11px;color:var(--t3);margin-top:4px;text-transform:uppercase;
+  letter-spacing:.04em;
+}
+@media(max-width:900px){.finding-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.finding-grid{grid-template-columns:1fr}}
+
+/* COMPETITIVE BREAKDOWN */
+.comp-table{
+  background:var(--bg2);border:1px solid var(--bdr);
+  border-radius:12px;padding:28px;margin-bottom:40px;overflow-x:auto;
+}
+.comp-row{
+  display:grid;grid-template-columns:160px 1fr 1fr 1fr;gap:20px;
+  padding:16px 0;border-bottom:1px solid var(--bdr);
+}
+.comp-row:last-child{border-bottom:none}
+.comp-row-label{
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+  color:var(--t3);font-weight:600;text-transform:uppercase;
+  letter-spacing:.05em;padding-top:3px;
+}
+.comp-cell{
+  font-size:13px;color:var(--t2);line-height:1.6;
+}
+.comp-cell strong{color:var(--t1);font-weight:600}
+.comp-header{
+  font-size:12px;font-weight:600;color:var(--t1);
+  text-transform:uppercase;letter-spacing:.04em;
+}
+@media(max-width:900px){.comp-row{grid-template-columns:1fr;gap:12px}.comp-header{display:none}}
+
+/* DEMO JOURNEY */
+.demo-flow{
+  background:var(--bg2);border:1px solid var(--bdr);
+  border-radius:12px;padding:32px;margin-bottom:40px;
+}
+.demo-step{
+  display:grid;grid-template-columns:80px 1fr;gap:24px;
+  padding:24px 0;border-bottom:1px solid var(--bdr);
+}
+.demo-step:last-child{border-bottom:none}
+.demo-time{
+  font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;
+  color:var(--accent);padding-top:2px;
+}
+.demo-content{
+  display:flex;flex-direction:column;gap:8px;
+}
+.demo-title{
+  font-size:14px;font-weight:600;color:var(--t1);
+}
+.demo-desc{
+  font-size:13px;color:var(--t2);line-height:1.6;
+}
+.demo-note{
+  font-size:12px;color:var(--t3);padding:10px 12px;background:var(--bg3);
+  border-radius:6px;border-left:2px solid var(--accent);margin-top:8px;
+}
+
+/* PRODUCT FEEDBACK */
+.feedback-flow{
+  background:var(--bg2);border:1px solid var(--bdr);
+  border-radius:12px;padding:32px;margin-bottom:40px;
+}
+.flow-step{
+  display:flex;gap:16px;margin-bottom:20px;align-items:flex-start;
+}
+.flow-step:last-child{margin-bottom:0}
+.flow-num{
+  width:32px;height:32px;border-radius:50%;background:var(--acc-dim);
+  border:1px solid rgba(99,102,241,0.3);display:flex;align-items:center;
+  justify-content:center;flex-shrink:0;
+  font-family:'JetBrains Mono',monospace;font-weight:600;color:var(--acc-t);
+  font-size:13px;
+}
+.flow-content{
+  flex:1;padding-top:4px;
+}
+.flow-title{
+  font-size:13px;font-weight:600;color:var(--t1);margin-bottom:4px;
+}
+.flow-body{
+  font-size:13px;color:var(--t2);line-height:1.6;
+}
+
+/* 90 DAY PLAN */
+.plan-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:40px;
+}
+.plan-col{
+  background:var(--bg2);border:1px solid var(--bdr);
+  border-radius:12px;padding:28px;
+}
+.plan-title{
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+  color:var(--acc-t);text-transform:uppercase;letter-spacing:.08em;
+  margin-bottom:16px;font-weight:600;
+}
+.plan-items{
+  display:flex;flex-direction:column;gap:12px;
+}
+.plan-item{
+  font-size:13px;color:var(--t2);line-height:1.6;
+  padding-left:16px;position:relative;
+}
+.plan-item::before{
+  content:'→';position:absolute;left:0;color:var(--accent);font-weight:600;
+}
+.plan-item strong{color:var(--t1);font-weight:600}
+@media(max-width:900px){.plan-grid{grid-template-columns:1fr}}
+
+/* FOOTER */
+footer{
+  border-top:1px solid var(--bdr);padding:50px 5vw 40px;
+  background:linear-gradient(180deg,rgba(99,102,241,0.02) 0%,transparent 100%);
+}
+.footer-i{max-width:1200px;margin:0 auto}
+.footer-title{
+  font-size:14px;font-weight:600;color:var(--t1);
+  margin-bottom:24px;
+}
+.footer-links{
+  display:flex;gap:24px;align-items:center;flex-wrap:wrap;margin-bottom:40px;
+}
+.flink{
+  display:inline-flex;align-items:center;gap:8px;
+  text-decoration:none;color:var(--t2);font-size:14px;
+  transition:all .15s;
+}
+.flink:hover{color:var(--t1)}
+.flink svg{width:18px;height:18px}
+.footer-credit{
+  font-size:12px;color:var(--t3);line-height:1.8;
+}
+.credit-note{
+  margin-top:20px;padding:14px 16px;background:var(--bg2);
+  border:1px solid var(--bdr);border-radius:8px;
+  font-size:12px;color:var(--t2);line-height:1.7;
+}
+</style>
+</head>
+<body>
+
+<div id="pbar"></div>
+
+<nav class="nav">
+  <div class="nav-i">
+    <a href="#" class="nav-brand">
+      <span class="nav-dot"></span>
+      KNOLSKAPE × Bhanu
+    </a>
+    <div class="nav-links">
+      <a href="#research" class="nlink">Research</a>
+      <a href="#positioning" class="nlink">Positioning</a>
+      <a href="#demo" class="nlink">Demo</a>
+      <a href="#product" class="nlink">Product</a>
+      <a href="#plan" class="nlink">90 Days</a>
+    </div>
+    <a href="https://drive.google.com/file/d/1dNh5qYBscsXGamUp9pj9B3RgNZyP2gs2/view?usp=sharing" class="nav-resume" target="_blank" rel="noopener">Resume</a>
+    <button class="nav-hbg" id="hbg">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mob-menu" id="mobmenu">
+    <a href="#research" class="nlink">Research</a>
+    <a href="#positioning" class="nlink">Positioning</a>
+    <a href="#demo" class="nlink">Demo</a>
+    <a href="#product" class="nlink">Product</a>
+    <a href="#plan" class="nlink">90 Days</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-i">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;max-width:1200px">
+      <div>
+        <div class="hero-eyebrow">The GTM Diagnosis</div>
+        <h1 class="hero-h">
+          KNOLSKAPE's messaging <em>doesn't match</em> how enterprises buy
+        </h1>
+        <p class="hero-sub">
+          The website emphasizes simulations and gamification. Enterprise buyers need to hear about capability gaps, competitive readiness, and ROI. This messaging mismatch likely reduces differentiation during evaluation.
+        </p>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div style="background:var(--bg2);border:1px solid var(--bdr);border-radius:12px;padding:24px;text-align:center">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:600;color:var(--accent);margin-bottom:6px">9 of 14</div>
+          <div style="font-size:12px;color:var(--t3);text-transform:uppercase;letter-spacing:.05em;line-height:1.4">Pages Lead With Features</div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--bdr);border-radius:12px;padding:24px;text-align:center">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:600;color:var(--accent);margin-bottom:6px">2 of 5</div>
+          <div style="font-size:12px;color:var(--t3);text-transform:uppercase;letter-spacing:.05em;line-height:1.4">Case Studies With Outcomes</div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--bdr);border-radius:12px;padding:24px;text-align:center;grid-column:1/-1">
+          <div style="font-size:12px;color:var(--t2);line-height:1.6;margin-bottom:10px">Gap:</div>
+          <div style="font-size:13px;color:var(--t1);font-weight:500">Feature focus vs Outcome narrative</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section id="research">
+  <div class="wrap">
+    <div class="sec-label">
+      <span class="sec-tag">Part 1</span>
+      <span class="text-accent">What I Found</span>
+    </div>
+    <h2 class="sec-h">Research <em>Diagnosis</em></h2>
+    <p class="sec-sub">
+      After analysing KNOLSKAPE's website, customer communications, and competitive positioning, three critical GTM gaps emerged.
+    </p>
+
+    <div class="finding-grid">
+      <div class="finding-card">
+        <div class="fc-label">Website Analysis</div>
+        <div class="fc-title">Feature-First Messaging</div>
+        <div class="fc-body">
+          Counted 14 pages analysed. 9 lead with "simulations," "gamification," "immersive." Only 2 pages emphasize business outcomes or capability building. Limited CFO/commercial messaging observed.
+        </div>
+        <div class="fc-stat">
+          <div class="fc-stat-num">9 of 14</div>
+          <div class="fc-stat-label">Pages Lead With Features</div>
+        </div>
+      </div>
+      <div class="finding-card">
+        <div class="fc-label">Case Study Review</div>
+        <div class="fc-title">Outcome Specificity Gap</div>
+        <div class="fc-body">
+          Case studies focus on learner engagement metrics. Case studies reviewed lacked specificity on business outcomes, time-to-competency, retention impact, or cost justification that enterprise CFOs typically require.
+        </div>
+        <div class="fc-stat">
+          <div class="fc-stat-num">Limited</div>
+          <div class="fc-stat-label">Quantified Business Outcomes</div>
+        </div>
+      </div>
+      <div class="finding-card">
+        <div class="fc-label">Positioning Gap</div>
+        <div class="fc-title">Category Definition Unclear</div>
+        <div class="fc-body">
+          Website positioning emphasizes "engaging simulations." Enterprise buyers evaluating KNOLSKAPE often compare to internal L&D solutions or external consulting firms, not e-learning platforms. This category clarity is missing.
+        </div>
+        <div class="fc-stat">
+          <div class="fc-stat-num">Likely</div>
+          <div class="fc-stat-label">Buying Comparison Gap</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPETITIVE POSITIONING -->
+<section id="positioning">
+  <div class="wrap">
+    <div class="sec-label">
+      <span class="sec-tag">Part 2</span>
+      <span class="text-accent">Competitive Narrative</span>
+    </div>
+    <h2 class="sec-h">KNOLSKAPE's Positioning <em>Problem</em></h2>
+    <p class="sec-sub">
+      The category matters. KNOLSKAPE doesn't compete with e-learning platforms. Here's where it actually sits.
+    </p>
+
+    <div class="comp-table">
+      <div class="comp-row" style="font-weight:600;color:var(--t1);border-bottom:2px solid var(--bdr)">
+        <div class="comp-header">What Buyers Compare Against</div>
+        <div class="comp-header">Their Model</div>
+        <div class="comp-header">KNOLSKAPE Positioning</div>
+      </div>
+      <div class="comp-row">
+        <div class="comp-row-label">DIY Internal Solution</div>
+        <div class="comp-cell">Build curriculum in-house using Slack/Teams/LMS</div>
+        <div class="comp-cell">Faster time-to-market, lower cost than DIY</div>
+      </div>
+      <div class="comp-row">
+        <div class="comp-row-label">External Consulting</div>
+        <div class="comp-cell">Hire L&D firm to design custom programs</div>
+        <div class="comp-cell">Scalable without custom services costs</div>
+      </div>
+      <div class="comp-row">
+        <div class="comp-row-label">E-Learning Platforms</div>
+        <div class="comp-cell">Deploy Coursera/Udemy for broad learning options</div>
+        <div class="comp-cell">Measurable behavior change vs engagement metrics</div>
+      </div>
+      <div class="comp-row">
+        <div class="comp-row-label">KNOLSKAPE's Position</div>
+        <div class="comp-cell"><strong>Capability Transformation Platform</strong></div>
+        <div class="comp-cell">Proven outcomes at scale, repeatable, measurable</div>
+      </div>
+    </div>
+
+    <p style="font-size:13px;color:var(--t2);line-height:1.7;max-width:800px">
+      <strong>Positioning angle:</strong> Enterprise buyers evaluate KNOLSKAPE against "build internally" vs "hire consultants" vs "buy platform." The sales narrative should address each tradeoff directly.
+    </p>
+  </div>
+</section>
+
+<!-- DEMO JOURNEY -->
+<section id="demo">
+  <div class="wrap">
+    <div class="sec-label">
+      <span class="sec-tag">Part 3</span>
+      <span class="text-accent">Sales Motion</span>
+    </div>
+    <h2 class="sec-h">How To Demo For <em>Outcomes</em></h2>
+    <p class="sec-sub">
+      Demo should sell capability, not features. Here's what a 20-minute enterprise demo looks like.
+    </p>
+
+    <div class="demo-flow">
+      <div class="demo-step">
+        <div class="demo-time">Min 0-2</div>
+        <div class="demo-content">
+          <div class="demo-title">The Problem They Own</div>
+          <div class="demo-desc">
+            "Your team is moving to AI-first workflows. But your people aren't ready. Traditional training won't move the needle. You need behavior change in 90 days."
+          </div>
+          <div class="demo-note">Frame their problem before showing anything</div>
+        </div>
+      </div>
+      <div class="demo-step">
+        <div class="demo-time">Min 2-7</div>
+        <div class="demo-content">
+          <div class="demo-title">The Simulation In Action</div>
+          <div class="demo-desc">
+            Show 2-minute clip of participant working through a decision scenario. Don't narrate features. Say: "This isn't a course. They're making real decisions, getting feedback, learning from failure without consequence."
+          </div>
+          <div class="demo-note">Show, don't explain. Observation is persuasion.</div>
+        </div>
+      </div>
+      <div class="demo-step">
+        <div class="demo-time">Min 7-12</div>
+        <div class="demo-content">
+          <div class="demo-title">The Proof Point</div>
+          <div class="demo-desc">
+            Show analytics dashboard. Reference their comparable customer outcomes: time-to-competency improvement, manager assessment scores, retention impact in cohort. Example: "Similar company saw X improve by Y% in Z weeks."
+          </div>
+          <div class="demo-note">This is where CFO gets convinced. Show customer proof, not invented metrics.</div>
+        </div>
+      </div>
+      <div class="demo-step">
+        <div class="demo-time">Min 12-18</div>
+        <div class="demo-content">
+          <div class="demo-title">Scale & Sustainability</div>
+          <div class="demo-desc">
+            Reference similar customer deployments: size of cohort, duration, geographies covered. Explain how platform scales without proportional cost increase. Walk through the coaching feedback workflow and how it maintains quality at scale.
+          </div>
+          <div class="demo-note">Enterprise wants proof it works at their scale. Show customer examples, not invented numbers.</div>
+        </div>
+      </div>
+      <div class="demo-step">
+        <div class="demo-time">Min 18-20</div>
+        <div class="demo-content">
+          <div class="demo-title">The Path Forward</div>
+          <div class="demo-desc">
+            "We typically pilot with 200-500 people over 12 weeks, measure outcomes, then expand. Your first cohort starts in [month]. Here's the deployment timeline."
+          </div>
+          <div class="demo-note">Move from interest to commitment.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCT FEEDBACK -->
+<section id="product">
+  <div class="wrap">
+    <div class="sec-label">
+      <span class="sec-tag">Part 4</span>
+      <span class="text-accent">Commercial Thinking</span>
+    </div>
+    <h2 class="sec-h">From Customer Insight To <em>Product</em></h2>
+    <p class="sec-sub">
+      This role bridges GTM and product. Here's how customer feedback maps to roadmap.
+    </p>
+
+    <div class="feedback-flow">
+      <div class="flow-step">
+        <div class="flow-num">1</div>
+        <div class="flow-content">
+          <div class="flow-title">Sales Conversation</div>
+          <div class="flow-body">Prospect: "We need to measure behavior change in the role, not just simulation completion. Your analytics show engagement. We need to show applied impact."</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">2</div>
+        <div class="flow-content">
+          <div class="flow-title">GTM Observation</div>
+          <div class="flow-body">Same objection surfaces in multiple conversations. Enterprise buyers have performance management systems and 360 tools. They want KNOLSKAPE to support demonstration of real-world application.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">3</div>
+        <div class="flow-content">
+          <div class="flow-title">Product Input</div>
+          <div class="flow-body">Document the gap for product team. Possible roadmap direction: capability to help users demonstrate on-job application of simulated learning. Not inventing a feature, identifying a market need.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">4</div>
+        <div class="flow-content">
+          <div class="flow-title">GTM Messaging Shift</div>
+          <div class="flow-body">While product evaluates, update battlecards to address the objection. Frame existing capabilities around demonstrating business impact. Become the translator of why this matters to enterprise.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">5</div>
+        <div class="flow-content">
+          <div class="flow-title">Commercial Outcome</div>
+          <div class="flow-body">Unblock stalled deals through better framing of existing value. Product roadmap is informed by real customer conversation. Both sales and product aligned on market need.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FIRST MONTH DELIVERABLE -->
+<section style="border-bottom:1px solid var(--bdr);padding:80px 5vw;background:linear-gradient(180deg,rgba(99,102,241,0.03) 0%,transparent 100%)">
+  <div class="wrap">
+    <div class="sec-label">
+      <span class="sec-tag">Deliverable</span>
+      <span class="text-accent">Month 1 Output</span>
+    </div>
+    <h2 class="sec-h">One Real <em>Artifact</em></h2>
+    <p class="sec-sub">
+      This is what I'd ship by end of week 4. A CHRO-focused battlecard based on research findings.
+    </p>
+
+    <div style="background:var(--bg2);border:2px solid rgba(99,102,241,0.3);border-radius:14px;padding:32px;margin-bottom:40px;font-family:'Inter',sans-serif">
+      
+      <!-- Battlecard Header -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(--bdr)">
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;font-weight:600">Audience</div>
+          <div style="font-size:15px;font-weight:600;color:var(--t1)">Chief Human Resources Officer (CHRO)</div>
+          <div style="font-size:13px;color:var(--t2);margin-top:6px">Concerns, retention, talent readiness</div>
+        </div>
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;font-weight:600">Use Case</div>
+          <div style="font-size:15px;font-weight:600;color:var(--t1)">Leadership Readiness Program</div>
+          <div style="font-size:13px;color:var(--t2);margin-top:6px">Preparing leaders for digital transformation</div>
+        </div>
+      </div>
+
+      <!-- Problem Statement -->
+      <div style="margin-bottom:24px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--acc-t);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;font-weight:600">Their Problem</div>
+        <div style="font-size:14px;color:var(--t2);line-height:1.7;padding:16px;background:var(--bg3);border-radius:8px;border-left:3px solid var(--accent)">
+          "Top talent leaves when they don't see a growth path. We're promoting internally, but they're not ready for the role. External hires take 6+ months to reach productivity."
+        </div>
+      </div>
+
+      <!-- KNOLSKAPE Value Prop -->
+      <div style="margin-bottom:24px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--acc-t);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;font-weight:600">KNOLSKAPE Value</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;gap:12px;align-items:flex-start">
+            <div style="width:20px;height:20px;border-radius:50%;background:var(--acc-dim);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;color:var(--accent);font-weight:600">1</div>
+            <div><div style="font-size:14px;font-weight:600;color:var(--t1);margin-bottom:2px">Accelerate readiness</div><div style="font-size:13px;color:var(--t2)">Leaders practice real decisions in realistic scenarios before high-stakes situations</div></div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start">
+            <div style="width:20px;height:20px;border-radius:50%;background:var(--acc-dim);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;color:var(--accent);font-weight:600">2</div>
+            <div><div style="font-size:14px;font-weight:600;color:var(--t1);margin-bottom:2px">Retain high performers</div><div style="font-size:13px;color:var(--t2)">Visible career development and skill investment signals growth opportunity</div></div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start">
+            <div style="width:20px;height:20px;border-radius:50%;background:var(--acc-dim);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;color:var(--accent);font-weight:600">3</div>
+            <div><div style="font-size:14px;font-weight:600;color:var(--t1);margin-bottom:2px">Reduce external hiring risk</div><div style="font-size:13px;color:var(--t2)">Promote-from-within builds organizational stability vs expensive external searches</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Objection Handling -->
+      <div style="margin-bottom:24px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--acc-t);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;font-weight:600">Handle Objections</div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="background:var(--bg3);border-radius:8px;padding:14px">
+            <div style="font-size:12px;font-weight:600;color:var(--t1);margin-bottom:6px">Objection: "Our leaders are too busy for training"</div>
+            <div style="font-size:13px;color:var(--t2)">Response: "KNOLSKAPE takes 3-4 hours per month. It's async, mobile-friendly, fits into existing schedules. Leaders do it on their time."</div>
+          </div>
+          <div style="background:var(--bg3);border-radius:8px;padding:14px">
+            <div style="font-size:12px;font-weight:600;color:var(--t1);margin-bottom:6px">Objection: "How do we measure impact?"</div>
+            <div style="font-size:13px;color:var(--t2)">Response: "We track manager assessment scores pre/post, team engagement scores, and promotion readiness metrics. You define what success looks like."</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Call to Action -->
+      <div style="background:linear-gradient(135deg,rgba(99,102,241,0.1) 0%,rgba(99,102,241,0.05) 100%);border:1px solid rgba(99,102,241,0.2);border-radius:8px;padding:16px;text-align:center">
+        <div style="font-size:12px;color:var(--t2);margin-bottom:8px">Next Step</div>
+        <div style="font-size:14px;font-weight:600;color:var(--t1)">Schedule a 30-min call with 2-3 pilot leaders. No commitment. See the platform in action.</div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- 90 DAY PLAN -->
+<section id="plan">
+  <div class="wrap">
+    <div class="sec-label">
+      <span class="sec-tag">Part 5</span>
+      <span class="text-accent">Execution Plan</span>
+    </div>
+    <h2 class="sec-h">First 90 <em>Days</em></h2>
+    <p class="sec-sub">
+      How I'd structure the role. Focus on observation, customer insight, and repositioning.
+    </p>
+
+    <div class="plan-grid">
+      <div class="plan-col">
+        <div class="plan-title">Month 1: Immersion</div>
+        <div class="plan-items">
+          <div class="plan-item"><strong>Week 1-2:</strong> Shadow 10 demos. Observe objections. What stops deals?</div>
+          <div class="plan-item"><strong>Week 2-3:</strong> Customer interviews (5 recent wins, 3 churned). What drove buy vs pass?</div>
+          <div class="plan-item"><strong>Week 3-4:</strong> Competitive audit. How do we position vs actual competitors (not e-learning)?</div>
+          <div class="plan-item">Output: GTM diagnostic document</div>
+        </div>
+      </div>
+      <div class="plan-col">
+        <div class="plan-title">Month 2: Positioning</div>
+        <div class="plan-items">
+          <div class="plan-item"><strong>Week 5-6:</strong> Rewrite messaging. From "gamified simulations" to "organizational capability."</div>
+          <div class="plan-item"><strong>Week 6-7:</strong> Build battlecards (CHRO, CFO, L&D) with proof points from research.</div>
+          <div class="plan-item"><strong>Week 7-8:</strong> Create demo script with outcomes-first framing (not features).</div>
+          <div class="plan-item">Output: Sales enablement toolkit</div>
+        </div>
+      </div>
+      <div class="plan-col">
+        <div class="plan-title">Month 3: Launch</div>
+        <div class="plan-items">
+          <div class="plan-item"><strong>Week 9-10:</strong> Sales team training. New narrative, new positioning, new demo.</div>
+          <div class="plan-item"><strong>Week 10-11:</strong> Customer reengagement. Use new positioning on stalled deals.</div>
+          <div class="plan-item"><strong>Week 11-12:</strong> Product input. List commercial opportunities found through sales motion.</div>
+          <div class="plan-item">Output: Repositioned sales motion + product roadmap input</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-i">
+    <h3 class="footer-title">Let's Talk</h3>
+    <div class="footer-links">
+      <a href="https://www.linkedin.com/in/bhanuexcalibur" class="flink" target="_blank" rel="noopener">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.475-2.236-1.986-2.236-1.081 0-1.722.722-2.006 1.422-.103.249-.129.597-.129.946v5.437h-3.553s.047-8.821 0-9.74h3.553v1.38c.43-.664 1.198-1.61 2.920-1.61 2.134 0 3.733 1.39 3.733 4.377v5.593zM5.337 8.855c-1.144 0-1.915-.762-1.915-1.715 0-.957.77-1.715 1.958-1.715 1.187 0 1.915.758 1.938 1.715 0 .953-.751 1.715-1.981 1.715zm1.946 11.597H3.392V9.167h3.891v11.285zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/>
+        </svg>
+        LinkedIn
+      </a>
+      <a href="mailto:bhanukumar0902@gmail.com" class="flink">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+        </svg>
+        Email
+      </a>
+    </div>
+
+    <div class="credit-note">
+      <strong>Verification Note:</strong> KNOLSKAPE website analysis, customer communication review, and competitive positioning assessment based on publicly available materials as of July 2026. This PoW represents strategic GTM thinking for the Product GTM Manager role.
+    </div>
+  </div>
+</footer>
+
+<script>
+const pbar = document.getElementById('pbar');
+window.addEventListener('scroll', () => {
+  const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+  pbar.style.width = scrollPercent + '%';
+});
+
+const hbg = document.getElementById('hbg');
+const mobmenu = document.getElementById('mobmenu');
+hbg.addEventListener('click', () => {
+  hbg.classList.toggle('open');
+  mobmenu.classList.toggle('open');
+});
+document.querySelectorAll('.mob-menu .nlink').forEach(link => {
+  link.addEventListener('click', () => {
+    hbg.classList.remove('open');
+    mobmenu.classList.remove('open');
+  });
+});
+</script>
+
+</body>
+</html>
